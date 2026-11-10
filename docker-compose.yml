@@ -1,0 +1,38 @@
+services:
+  backup-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: saas-backup-service
+
+    restart: unless-stopped
+
+    env_file:
+      - .env
+
+    environment:
+      TZ: ${TZ:-UTC}
+
+    volumes:
+      - ./config/rclone.conf:/config/rclone.conf:ro
+      - ./data:/data
+
+    networks:
+      - saas-backup-network
+
+    security_opt:
+      - no-new-privileges:true
+
+    cap_drop:
+      - ALL
+
+    cap_add:
+      - SETUID
+      - SETGID
+      - DAC_OVERRIDE
+
+networks:
+  saas-backup-network:
+    external: true
+    name: ${DOCKER_NETWORK:?Configura DOCKER_NETWORK en .env}

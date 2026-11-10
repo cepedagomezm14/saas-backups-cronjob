@@ -1,0 +1,4 @@
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+0 3 * * * root source /run/backup-env.sh && /scripts/backup.sh >> /data/logs/backup.log 2>&1

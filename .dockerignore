@@ -1,0 +1,6 @@
+.env
+config/rclone.conf
+data/
+.git/
+*.dump
+*.age
